@@ -16,17 +16,11 @@ public class Graph {
         addVertexes(labels);
         int size = labels.size();
         adjoiningMatrix = new Integer[size][size];
-
-        for (int i = 0; i < size; i++) {// матрица смежности заполняется
-            for (int k = 0; k < size; k++) { // бесконечными расстояниями
-                adjoiningMatrix[i][k] = 1000000; // задания значений по умолчанию
-            }
-        }
     }
 
     public List<Integer> findAdjoinedVertexes(int v) {
         return IntStream.range(0, vertexList.size()).boxed()
-                .filter(j -> adjoiningMatrix[v][j] == 1)
+                .filter(j -> adjoiningMatrix[v][j] != null)
                 .toList();
     }
 
@@ -36,10 +30,6 @@ public class Graph {
 
     public int getIndex(Vertex v) {
         return vertexList.indexOf(v);
-    }
-
-    public int getCountOfVertises() {
-        return vertexList.size();
     }
 
     private void addVertexes(List<Character> labels) {
@@ -71,7 +61,7 @@ public class Graph {
         adjoiningMatrix[start][end] = distance;
     }
 
-    public int getDistance(int start, int end) {
+    public Integer getDistance(int start, int end) {
         return adjoiningMatrix[start][end];
     }
 }

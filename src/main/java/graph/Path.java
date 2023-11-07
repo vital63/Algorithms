@@ -1,18 +1,14 @@
 package graph;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
+@RequiredArgsConstructor
 public class Path { // объект данного класса содержащий расстояние и предыдущие и пройденные вершины
 
-    private int distance; // текущая дистанция от начальной вершины
-    private List<Integer> parentVertices; // текущий родитель вершины
-
-    public Path(int distance) {
-        this.distance = distance;
-        this.parentVertices = new ArrayList<>();
-    }
+    private final int distance; // текущая дистанция от начальной вершины
+    private final List<Integer> parentVertices; // текущий родитель вершины
 }

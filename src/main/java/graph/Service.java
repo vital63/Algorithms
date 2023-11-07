@@ -1,21 +1,24 @@
 package graph;
 
 import java.util.List;
+import java.util.Map;
 
 public class Service {
     public static void main(String[] args) {
-//        Graph graph = buildGraph();
+        Graph graph = buildGraph();
 //
-//        List<Graph.Vertex> result = new DfsProcessor(graph, 0).getResult();
-//        System.out.println("Dfs Visits: ");
-//        System.out.println(result.stream().map(Graph.Vertex::label).toList());
+        List<Graph.Vertex> result = new DfsProcessor(graph, 0).getResult();
+        System.out.println("Dfs Visits: ");
+        System.out.println(result.stream().map(Graph.Vertex::label).toList());
 //
-//        result = new BfsProcessor(graph, 0).getResult();
-//        System.out.println("Bfs Visits: ");
-//        System.out.println(result.stream().map(Graph.Vertex::label).toList());
+        result = new BfsProcessor(graph, 0).getResult();
+        System.out.println("Bfs Visits: ");
+        System.out.println(result.stream().map(Graph.Vertex::label).toList());
 
         Graph graphWithDistance = buildGraphWithDistance();
-        new DijkstraProcessor(graphWithDistance, 0);
+        Map<Integer, Path> resultWithDistance = new DijkstraProcessor(graphWithDistance, 0).getResult();
+        System.out.println("Shortest paths: ");
+        displayPaths(graphWithDistance, resultWithDistance);
     }
 
     public static Graph buildGraph() {
@@ -43,5 +46,17 @@ public class Service {
         graph.addEdge('F', 'G', 4);
 
         return graph;
+    }
+
+    public static void displayPaths(Graph graph, Map<Integer, Path> paths) {
+        paths.forEach((index, path) -> {
+            char label = graph.getVertex(index).label();
+            System.out.print(label + " = ");
+            StringBuilder result = new StringBuilder(path.getDistance() + " (");
+            for (Integer parent : path.getParentVertices()) {
+                result.append(graph.getVertex(parent).label()).append(" -> ");
+            }
+            System.out.println(result.toString() + label + ")");
+        });
     }
 }
