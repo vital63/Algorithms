@@ -6,11 +6,11 @@ import java.util.Map;
 public class Service {
     public static void main(String[] args) {
         Graph graph = buildGraph();
-//
+
         List<Graph.Vertex> result = new DfsProcessor(graph, 0).getResult();
         System.out.println("Dfs Visits: ");
         System.out.println(result.stream().map(Graph.Vertex::label).toList());
-//
+
         result = new BfsProcessor(graph, 0).getResult();
         System.out.println("Bfs Visits: ");
         System.out.println(result.stream().map(Graph.Vertex::label).toList());
